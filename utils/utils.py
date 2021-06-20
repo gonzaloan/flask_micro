@@ -13,6 +13,11 @@ class MicroUtils:
                filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
     @staticmethod
+    def is_zip_file(filename):
+        return '.' in filename and \
+               filename.rsplit('.', 1)[1].lower() == 'zip'
+
+    @staticmethod
     def generate_random_filename(extension):
         """This method will generate a random 15 letters string value to assign to every uploaded picture"""
         letters = string.ascii_lowercase
