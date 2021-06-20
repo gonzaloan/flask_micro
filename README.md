@@ -1,6 +1,7 @@
 # Flash Micro-Web-Framework Challenge
 
-This repo is for the flask micro web framework challenge. 
+This repo is for the flask micro web framework challenge for **Service Rocket** application.
+My name is Gonzalo Muñoz (gonzaloan.munoz@gmail.com)
 
 
 ## Build and deploy in local environment
