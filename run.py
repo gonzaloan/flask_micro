@@ -1,8 +1,9 @@
-from flask import Flask, request, make_response, send_from_directory
+from flask import Flask, request, send_from_directory
 
 from exceptions.exceptions import InvalidUsage, InternalErrorUsage
 from services.image_service import ImagesService
-from utils.constants import UPLOAD_FOLDER, ERROR_FILE_RESPONSE
+from utils.constants import UPLOAD_FOLDER
+from utils.utils import MicroUtils
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -22,12 +23,8 @@ def handle_internal_error_usage(error):
 @app.route('/attach', methods=['POST'])
 def attach_picture():
     app.logger.info('Processing attach_picture request')
-    if 'file' not in request.files:
-        app.logger.error('Error while attach_picture request. The file is not present')
-        raise InvalidUsage(ERROR_FILE_RESPONSE, status_code=400)
-
-    file = request.files['file']
-    return image_service.attach_image(file, app)
+    MicroUtils.validate_if_empty_file_body(request.files, app)
+    return image_service.attach_image(request.files['file'], app)
 
 
 @app.route('/uploaded/<filename>')

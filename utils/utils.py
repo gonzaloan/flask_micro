@@ -1,4 +1,5 @@
-from utils.constants import ALLOWED_EXTENSIONS
+from exceptions.exceptions import InvalidUsage
+from utils.constants import ALLOWED_EXTENSIONS, ERROR_FILE_RESPONSE
 import random
 import string
 """
@@ -23,3 +24,11 @@ class MicroUtils:
         letters = string.ascii_lowercase
         random_name = ''.join(random.choice(letters) for i in range(15))
         return f'{random_name}.{extension}'
+
+    @staticmethod
+    def validate_if_empty_file_body(files, app):
+        if 'file' not in files:
+            app.logger.error('Error while attach_picture request. The file is not present')
+            raise InvalidUsage(ERROR_FILE_RESPONSE, status_code=400)
+
+
